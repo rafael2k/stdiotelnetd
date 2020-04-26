@@ -8,7 +8,9 @@ program specified as a command line argument (with its own arguments passed
 through as needed) having both `stdin`/`stdout` of this program redirected to
 any telnet client connected. Note that only one instance of the program will
 ever be spawned, hence all of the connected clients will be seeing the same
-content, effectively being able to observe what the others are typing.
+content, effectively being able to observe the effects of the other connected
+users actions (namely, if the spawned program responds with echo, all the users
+will be seeing what the others are typing).
 
 ## Usage guidelines
 
