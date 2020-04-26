@@ -29,6 +29,10 @@
 #include "connection.h"
 #include "telnetd.h"
 
+#ifdef MAX_CONN
+static size_t conns = 0U;
+#endif
+
 struct Connection *newConnection(const char *host, int sock)
 {
   struct Connection *conn = NULL;
@@ -45,6 +49,14 @@ struct Connection *newConnection(const char *host, int sock)
   conn->rbHostToNet = NULL;
   conn->rbNetToHost = NULL;
   conn->telnet = NULL;
+#ifdef MAX_CONN
+  conns++;
+  if (conns > MAX_CONN) {
+    connSendMsg(conn, "Too many connections!\n\r");
+    closeConnection(conn);
+    return NULL;
+  }
+#endif
   conn->rbHostToNet = ringbuf_new(RINGBUF_CAPACITY);
   if (!(conn->rbHostToNet)) {
     closeConnection(conn);
@@ -187,4 +199,8 @@ void closeConnection(struct Connection *conn)
   conn->rbNetToHost = NULL;
   conn->next = NULL;
   free(conn);
+#ifdef MAX_CONN
+  assert(conns > 0U);
+  conns--;
+#endif
 }
