@@ -130,7 +130,7 @@ int serverStep(struct Server *server)
         assert(server->connections->sock == sock);
         server->connections->next = prev;
       } else {
-        prev = NULL;
+        server->connections = prev;
         close(sock);
         sock = -1;
       }
