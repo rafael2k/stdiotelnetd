@@ -124,7 +124,7 @@ int main(int argc, char **argv)
     tv.tv_sec = 0;
     tv.tv_usec = 10;
     if (select(fdin + 1, &fds, NULL, NULL, &tv)) {
-      if (FD_ISSET(fdin, &fds)) {
+      if ((!quit) && (FD_ISSET(fdin, &fds))) {
         buf[0] = 0U;
         ssize = read(fdin, buf, sizeof buf);
         if (ssize > 0) {
