@@ -133,6 +133,8 @@ int main(int argc, char **argv)
             retval = FAIL;
             break;
           }
+        } else {
+          break;
         }
       }
     }
