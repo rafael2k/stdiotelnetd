@@ -159,6 +159,13 @@ int connSend(struct Connection *conn, const uint8_t *data, size_t size)
   return 0;
 }
 
+int connSendMsg(struct Connection *conn, const char *msg)
+{
+  assert(conn);
+  assert(msg);
+  return connSend(conn, (const uint8_t *)msg, strlen(msg));
+}
+
 void killConnection(struct Connection *conn)
 {
   assert(conn);

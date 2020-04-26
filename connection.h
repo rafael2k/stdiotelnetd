@@ -43,6 +43,7 @@ struct Connection
 struct Connection *newConnection(const char *host, int sock);
 int handleConnection(struct Connection *conn, int selected);
 int connSend(struct Connection *conn, const uint8_t *data, size_t size);
+int connSendMsg(struct Connection *conn, const char *msg);
 int connHostToNetGet(struct Connection *conn, uint8_t *data, size_t size);
 int connHostToNetPut(struct Connection *conn, const uint8_t *data, size_t size);
 int connNetToHostGet(struct Connection *conn, uint8_t *data, size_t size);
