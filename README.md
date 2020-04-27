@@ -41,6 +41,24 @@ $ TELNET_TELOPT_ECHO=1 TELNET_TELOPT_LINEMODE=1 ./stdiotelnetd 2048
 instructing the telnet clients to stop outputing local echo and give up line
 mode.
 
+## How to build it?
+
+This program requires `libtelnet` library. Depending on the version you may
+came across, it can provide either `pkg-config` or `CMake` guidance files.
+For that reason, both the `Makefile` and `CMakeLists.txt` files were prepared.
+
+If your `libtelnet` library is `pkg-config` compatible, just run `make` to build
+this program.
+
+If your `libtelnet` library is `CMake` compatible, use `CMake` as such:
+
+```
+$ mkdir build
+$ cd build
+$ cmake /path/to/stdiotelnetd/sources
+$ make
+```
+
 ## Caveats
 
 Does not work well with Putty. Use any usual command-line telnet client instead.
