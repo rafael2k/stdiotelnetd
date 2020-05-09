@@ -114,8 +114,11 @@ int main(int argc, char **argv)
   }
   if ((!spawned) && (!(getenv("TELNET_TELOPT_LINEMODE")))) {
     isRaw = !((rawtty(fdin, &oldtermios)) < 0);
-    if (!isRaw)
+    if (isRaw) {
+      D("Raw TTY mode entered. Press Ctrl+2 to quit.\r\n");
+    } else {
       fprintf(stderr, "Cannot set raw tty.\n");
+    }
   }
   retval = 0;
   while (!quit) {
@@ -128,6 +131,10 @@ int main(int argc, char **argv)
         buf[0] = 0U;
         ssize = read(fdin, buf, sizeof buf);
         if (ssize > 0) {
+          if (isRaw) {
+            if (memchr(buf, 0, ssize))
+              break;
+          }
           if ((serverHostToNetPut(&server, buf, ssize)) < 0) {
             fprintf(stderr, "Ringbuf failure (OUT).\n");
             retval = FAIL;
