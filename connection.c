@@ -26,6 +26,7 @@
 
 #include "ringbuf.h"
 
+#include "debug.h"
 #include "connection.h"
 #include "telnetd.h"
 
@@ -39,6 +40,7 @@ struct Connection *newConnection(const char *host, int sock)
 
   assert(host);
   assert(!(sock < 0));
+  D("\r\nNew connection from [%s] on socket %d.\r\n", host, sock);
   conn = (struct Connection *)(malloc(sizeof(struct Connection)));
   if (!conn)
     return NULL;
@@ -181,10 +183,13 @@ int connSendMsg(struct Connection *conn, const char *msg)
 void killConnection(struct Connection *conn)
 {
   assert(conn);
+  D("\r\nClosing connection from [%s] on socket %d.\r\n",
+    conn->host, conn->sock);
   telnetdStop(conn);
   if (conn->sock >= 0)
     close(conn->sock);
   conn->sock = -1;
+  conn->host[0] = 0;
 }
 
 void closeConnection(struct Connection *conn)

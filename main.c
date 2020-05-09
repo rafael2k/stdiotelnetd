@@ -180,6 +180,6 @@ int main(int argc, char **argv)
   if (isRaw)
     ttyreset(fdin, &oldtermios);
   serverStop(&server);
-  D("\nNatural end.\n");
+  D("\r\nNatural end.\r\n");
   return retval;
 }
