@@ -41,6 +41,13 @@ $ TELNET_TELOPT_ECHO=1 TELNET_TELOPT_LINEMODE=1 ./stdiotelnetd 2048
 instructing the telnet clients to stop outputing local echo and give up line
 mode.
 
+The `TELNET_MOTD` environment variable can be used to set the 'message of the
+day' sent to every new connection, e.g.:
+
+```
+$ TELNET_TELOPT_ECHO=1 TELNET_MOTD="Welcome to my system." ./stdiotelnetd 2048
+```
+
 ## How to build it?
 
 This program requires `libtelnet` library. Depending on the version you may

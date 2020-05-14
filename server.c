@@ -15,6 +15,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <unistd.h>
@@ -80,6 +81,7 @@ int serverStep(struct Server *server)
 {
   struct Connection *conn = NULL;
   struct Connection *prev = NULL;
+  const char *motd = getenv("TELNET_MOTD");
   fd_set fdset;
   struct timeval tv;
   int max = -1;
@@ -126,6 +128,15 @@ int serverStep(struct Server *server)
                                                     topbuf,
                                                     sizeof topbuf),
                                           sock);
+      if ((server->connections) && motd) {
+        if ((connSendMsg(server->connections, motd)) < 0) {
+          closeConnection(server->connections);
+          server->connections = NULL;
+        } else if ((connSendMsg(server->connections, "\n\r")) < 0) {
+          closeConnection(server->connections);
+          server->connections = NULL;
+        }
+      }
       if (server->connections) {
         assert(server->connections->sock == sock);
         server->connections->next = prev;
