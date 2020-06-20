@@ -87,7 +87,7 @@ int handleConnection(struct Connection *conn, int selected)
     return -1;
   if (selected) {
     rec = recv(conn->sock, (void *)(buf), sizeof buf, MSG_NOSIGNAL);
-    if (!rec)
+    if (rec <= 0)
       return -1;
     telnet_recv(conn->telnet, (char *)buf, rec);
   } else {
