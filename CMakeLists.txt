@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(stdiotelnetd)
-set(CMAKE_C_FLAGS "-DRINGBUF_CAPACITY=512U -DMAX_CONN=7U")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRINGBUF_CAPACITY=512U -DMAX_CONN=7U")
 include(/usr/lib64/cmake/libtelnet/libtelnet.cmake)
 get_target_property(LIBTELNET_INCDIR libtelnet INTERFACE_INCLUDE_DIRECTORIES)
 include_directories(${LIBTELNET_INCDIR})
