@@ -43,7 +43,8 @@ int serverInit(struct Server *server, uint16_t waitport)
   assert(waitport > 0U);
   memset(server, 0, sizeof(struct Server));
   sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-  if (sock < 0) return -1;
+  if (sock < 0)
+    return -1;
   memset(&sa_server, 0, sizeof sa_server);
   sa_server.sin_family = AF_INET;
   sa_server.sin_addr.s_addr = INADDR_ANY;
