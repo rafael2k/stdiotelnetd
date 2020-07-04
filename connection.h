@@ -28,12 +28,12 @@
 
 #include "ringbuf.h"
 
-#define MAX_HOST_LEN  127
+#define MAX_HOST_LEN 127U
 
 struct Connection
 {
   struct Connection *next;
-  char host[MAX_HOST_LEN + 1];
+  char host[MAX_HOST_LEN + 1U];
   int sock;
   ringbuf_t rbHostToNet;
   ringbuf_t rbNetToHost;
